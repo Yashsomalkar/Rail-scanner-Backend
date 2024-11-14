@@ -1,72 +1,4 @@
-# from flask import Flask, request, jsonify
-# import pymongo
-# import firebase_admin
-# from firebase_admin import db
-# from firebase_admin import credentials
-# import os
-# from dotenv import load_dotenv
-# from datetime import datetime
-# # Load environment variables
-# load_dotenv()
 
-# # Initialize Flask app
-# app = Flask(__name__)
-
-# # MongoDB setup
-# mongo_client = pymongo.MongoClient(os.getenv("MONGO_URI"))
-# db_mongo = mongo_client["gps_tracking"]
-# collection = db_mongo["locations"]
-
-# # Firebase setup
-# cred = credentials.Certificate('firebase_service.json')
-# firebase_admin.initialize_app(cred, {
-#     'databaseURL': os.getenv("FIREBASE_DB_URL")
-# })
-# def send_to_firebase(data):
-#     ref = db.reference('/locations')
-#     ref.push(data)
-#     print("Data sent to Firebase!")
-
-# @app.route('/api/v1/location', methods=['POST'])
-# def save_location():
-#     data = request.get_json()
-#     if data:
-#         # Store data in MongoDB
-#         data["timestamp"] = datetime.utcnow().isoformat() + "Z"  # Add UTC timestamp in ISO format
-
-#         collection.insert_one(data)
-        
-#         # Send data to Firebase for real-time tracking
-#         send_to_firebase(data)
-
-#         return jsonify({"status": "success"}), 200
-#     return jsonify({"error": "Invalid data"}), 400
-
-# if __name__ == "__main__":
-#     app.run(debug=True)
-# # import pymongo
-# # import os
-# # from dotenv import load_dotenv
-
-# # # Load environment variables
-# # load_dotenv()
-
-# # # Connect to MongoDB Atlas
-# # MONGO_URI = os.getenv("MONGO_URI")
-# # mongo_client = pymongo.MongoClient(MONGO_URI)
-
-# # # Define database and collection
-# # db = mongo_client["gps_tracking"]
-# # collection = db["locations"]
-
-# # # Sample function to insert data
-# # def insert_location(data):
-# #     collection.insert_one(data)
-# #     print("Data inserted successfully")
-
-# # # Example usage
-# # data = {"latitude": 25.26, "longitude": 82.98, "timestamp": "2024-11-11T12:34:56Z"}
-# # insert_location(data)
 import firebase_admin
 from firebase_admin import credentials, db
 from flask import Flask, request, jsonify
@@ -98,6 +30,9 @@ def send_to_firebase(data):
     ref.push(data)  # Push the new GPS location to Firebase
     print("Data sent to Firebase!")
 
+@app.route('/')
+def index():
+    return "Welcome to the Real-Time GPS Tracker API! Created By : Yash and atharv"
 # Define a route to accept GPS location data
 @app.route('/api/v1/location', methods=['POST'])
 def save_location():
