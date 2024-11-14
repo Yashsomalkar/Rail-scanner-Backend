@@ -1,0 +1,6 @@
+Flask
+pymongo
+firebase-admin
+python-dotenv
+pymongo[srv]
+firebase_admin
